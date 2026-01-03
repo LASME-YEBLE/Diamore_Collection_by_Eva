@@ -1,0 +1,283 @@
+:root {
+  --bg1: #f4f4f4;
+  --bg2: #fff2ea;
+  --card: #ffffff;
+  --accent: #e67e22;
+  --muted: #6b6b6b;
+  --dark: #0b0b0b;
+  --shadow: 0 6px 18px rgba(15, 15, 15, 0.08);
+  --radius: 14px;
+  --gap: 28px;
+  --max-width: 1200px;
+}
+
+/* Reset & base */
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  height: 100%
+}
+
+/* ...existing code... */
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.45;
+  position: relative;
+  /* nécessaire pour empiler le contenu au-dessus du bg flou */
+  z-index: 0;
+  /* on conserve un dégradé de fond léger si l'image manque */
+  background: linear-gradient(135deg, var(--bg1) 60%, var(--bg2) 100%);
+}
+
+/* Image d'arrière‑plan floue + légère surcouche colorée */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  /* top:0; right:0; bottom:0; left:0; */
+  background-image:
+    linear-gradient(rgba(255, 245, 240, 0.22), rgba(0, 0, 0, 0.12)),
+    url("Baby Pink Liquid Satin.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(8px) saturate(1.05);
+  transform: scale(1.03);
+  /* évite les bords visibles après flou */
+  z-index: -1;
+  /* place l'image derrière le contenu */
+  opacity: 0.85;
+  /* ajuster l'intensité */
+}
+
+/* S'assurer que le contenu est au‑dessus du pseudo‑élément */
+header,
+main,
+footer,
+nav,
+.products {
+  position: relative;
+  z-index: 1;
+}
+
+
+header {
+  background: linear-gradient(90deg, #111 0%, #0b0b0b 100%);
+  color: #fff;
+  padding: 36px 16px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.9rem;
+  letter-spacing: 1.6px
+}
+
+header p {
+  margin: 8px 0 0;
+  font-size: 0.98rem;
+  color: #f0d9c7;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.95
+}
+
+/* Page content container */
+main {
+  max-width: var(--max-width);
+  margin: 28px auto;
+  padding: 0 16px 80px;
+}
+
+/* Catalogue title */
+#catalogue h2 {
+  text-align: center;
+  margin: 8px 0 18px;
+  font-size: 1.4rem;
+  color: var(--dark);
+}
+
+/* Products grid (cards) */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--gap);
+  align-items: start;
+}
+
+/* Card */
+.product {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .22s ease, box-shadow .22s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 320px;
+}
+
+/* Clickable image wrapper */
+.product .product-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.product .product-link img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform .45s cubic-bezier(.2, .9, .3, 1);
+  transform-origin: center;
+}
+
+.product:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(15, 15, 15, 0.12);
+}
+
+.product:hover .product-link img {
+  transform: scale(1.06);
+}
+
+/* Info area */
+.product-info {
+  padding: 14px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 auto;
+}
+
+.product h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.product p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Price line */
+.product .price {
+  margin-top: auto;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1.05rem;
+}
+
+/* Footer (not fixed) */
+footer {
+  background: #222;
+  color: #fff;
+  text-align: center;
+  padding: 12px 8px;
+  font-size: 0.95rem;
+  margin-top: 36px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Links style used as cards in older nav usage */
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 24px auto;
+  max-width: var(--max-width);
+  padding: 0 16px;
+}
+
+nav a {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 12px;
+  text-decoration: none;
+  color: inherit;
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+nav a img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform .25s;
+}
+
+nav a:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.10);
+}
+
+nav a:hover img {
+  transform: scale(1.06);
+}
+
+/* Accessibility & small tweaks */
+a {
+  cursor: pointer
+}
+
+.product .product-link:focus,
+nav a:focus {
+  outline: 3px solid rgba(230, 126, 34, 0.16);
+  outline-offset: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width:900px) {
+  header {
+    padding: 28px 12px
+  }
+
+  .product .product-link img {
+    height: 200px;
+  }
+}
+
+@media (max-width:600px) {
+  header {
+    padding: 20px 10px
+  }
+
+  .product .product-link img {
+    height: 160px;
+  }
+
+  .products {
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+
+
+/* ...existing code... */
